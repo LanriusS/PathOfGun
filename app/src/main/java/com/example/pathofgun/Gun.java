@@ -83,7 +83,7 @@ public class Gun {
     }
 
     public void setPrix(String price) {
-        this.prix = price;
+        this.prix = Double.parseDouble(price);
     }
 
     public double getPrixBase() {
@@ -138,3 +138,4 @@ public class Gun {
         this.listExtraAccesoires = listExtraAccesoires;
 
     }
+}

@@ -9,37 +9,46 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
-
 public class GunAdapter extends BaseAdapter {
-    private List<PropObjet> items;
+    private ListGun gun;
     private LayoutInflater mInflater;
     private ClickableActivity activity;
     private int selected = -1;
 
-    public GunAdapter(ClickableActivity activity, List<PropObjet> items) {
+    public GunAdapter(ClickableActivity activity, ListGun gun) {
         this.activity = activity;
-        this.items = items;
+        this.gun = gun;
         mInflater = LayoutInflater.from(activity.getContext());
     }
 
     public int getCount() {
-        return items.size();
+        return gun.size();
     }
 
-    public Object getItem(int position) {
-        return items.get(position);
+    @Override
+    public Object getItem(int i) {
+        return null;
     }
 
-    public long getItemId(int position) {
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    public Object getgun(int position) {
+        return gun.get(position);
+    }
+
+    public long getgunId(int position) {
         return position;
     }
 
-    public List<PropObjet> getItems() {
-        return items;
+    public ListGun getgun() {
+        return gun;
     }
 
-    public void setItems(List<PropObjet> items) {
-        this.items = items;
+    public void setgun(ListGun gun) {
+        this.gun = gun;
     }
 
     public int getSelected() {
@@ -66,22 +75,22 @@ public class GunAdapter extends BaseAdapter {
         ImageView image = layoutItem.findViewById(R.id.picture);
 
         //(3) : Renseignement des valeurs
-        nom.setText(items.get(position).getNom());
-        prix.setText(items.get(position).getPrix()+"€");
-        image.setImageResource(items.get(position).getImg());
-        prix.setTextColor(( Float.parseFloat(""+items.get(position).getPrix())> 5.0)? Color.RED : Color.parseColor("#7A7A7A"));
+        nom.setText(gun.get(position).getNom());
+        prix.setText(gun.get(position).getPrix()+"€");
+        image.setImageResource(gun.get(position).getImg());
+        prix.setTextColor(( Float.parseFloat(""+gun.get(position).getPrix())> 5.0)? Color.RED : Color.parseColor("#7A7A7A"));
 
         nom.setTag(position);
         image.setTag(position);
         prix.setTag(position);
 
         nom.setOnClickListener(v -> {
-            Objet.changeSelected(position);
+            gun.changeSelected(position);
             activity.onClickNom(position);
             nom.setTextSize(30);
         });
 
-        if (!(items.get(position).isSelected())) {
+        if (!(gun.get(position).isSelected())) {
             nom.setTextSize(20);
         }
 
