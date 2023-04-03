@@ -9,10 +9,14 @@ public enum Objet {
         MAG("Chargeur double"),
         SCOPE("Viseur X6"),
         CROSSE("Crosse"),
-        POIGNEE("Poignée");
+        POIGNEE("Poignée"),
+        C50("Calibre 50"),
+        OTAN("Calibre 5.56"),
+        C9("Calibre 9mm");
+
         private final String name;
 
-        Item(String name) {
+        Objet(String name) {
             this.name = name;
         }
 

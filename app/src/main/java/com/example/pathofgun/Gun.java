@@ -9,22 +9,22 @@ public class Gun {
     private boolean selected = false;
     private final String nom;
     private final int img;
-    private String prix;
+    private double prix;
     private final double prixBase;
     ArrayList<Accesoires> listAccesoires = new ArrayList<>();
     ArrayList<Accesoires> listExtraAccesoires = new ArrayList<>();
     private final HashMap<Accesoires, Integer> AccesoiresQuantites = new HashMap<>();
     private final HashMap<Accesoires, Integer> AccesoiresPrix = new HashMap<>();
 
-    public Pizza(String name, int price, int picture, ArrayList<Accesoires> listAccesoires) {
+    public Gun(String name, double price, int picture, ArrayList<Accesoires> listAccesoires) {
         this.nom = name;
         this.img = picture;
-        this.prix = ""+price;
-        this.prixBase = Float.valueOf(price);
+        this.prix = Double.parseDouble(""+price);
+        this.prixBase = Float.valueOf((float) price);
         this.listAccesoires = listAccesoires;
-        Accesoires fromage = new Accesoires(Item.FROMAGE, 50, "g");
-        Accesoires olives = new Accesoires(Item.OLIVES, 3, "g");
-        Accesoires champignons = new Accesoires(Item.CHAMPIGNONS, 80, "g");
+        Accesoires fromage = new Accesoires(Objet.CROSSE);
+        Accesoires olives = new Accesoires(Objet.POIGNEE);
+        Accesoires champignons = new Accesoires(Objet.MAG);
         listExtraAccesoires.add(fromage);
         listExtraAccesoires.add(olives);
         listExtraAccesoires.add(champignons);
@@ -43,7 +43,7 @@ public class Gun {
         selected = in.readByte() != 0;
         nom = in.readString();
         img = in.readInt();
-        prix = in.readString();
+        prix = in.readDouble();
         prixBase = in.readDouble();
         listAccesoires = in.readArrayList(Accesoires.class.getClassLoader());
     }
@@ -57,13 +57,13 @@ public class Gun {
     }
 
     public float getPrix() {
-        return Float.valueOf(prix);
+        return Float.valueOf((float) prix);
     }
 
     public int getQuantity(String Accesoires) {
         int i = 0;
         while (i < listExtraAccesoires.size()) {
-            if (listExtraAccesoires.get(i).getItem().getName().equals(Accesoires)) {
+            if (listExtraAccesoires.get(i).getObjet().getName().equals(Accesoires)) {
                 return AccesoiresQuantites.get(listExtraAccesoires.get(i));
             }
             i++;
@@ -75,7 +75,7 @@ public class Gun {
         int i = 0;
         while (i < listExtraAccesoires.size()) {
             Accesoires extraAccesoires = listExtraAccesoires.get(i);
-            if (extraAccesoires.getItem().getName().equals(Accesoires)) {
+            if (extraAccesoires.getObjet().getName().equals(Accesoires)) {
                 AccesoiresQuantites.put(extraAccesoires, quantity);
             }
             i++;

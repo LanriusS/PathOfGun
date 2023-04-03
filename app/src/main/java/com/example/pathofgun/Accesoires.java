@@ -3,48 +3,28 @@ package com.example.pathofgun;
 import android.os.Parcel;
 
 public class Accesoires {
-    private final int defaultQuantity;
-    private Item item;
-    private String unity;
+    private Objet objet;
 
-    public Ingredient(Item item, int defaultQuantity, String unity) {
-        this.item = item;
-        this.defaultQuantity = defaultQuantity;
-        this.unity = unity;
+    public Accesoires(Objet objet) {
+        this.objet = objet;
     }
 
-    protected Ingredient(Parcel in) {
-        defaultQuantity = in.readInt();
-        unity = in.readString();
-        item = Item.valueOf(in.readString());
+    protected Accesoires(Parcel in) {
+        objet = objet.valueOf(in.readString());
     }
 
-    public int getDefaultQuantity() {
-        return defaultQuantity;
+    public Objet getObjet() {
+        return objet;
     }
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public String getUnity() {
-        return unity;
-    }
-
-    public void setUnity(String unity) {
-        this.unity = unity;
+    public void setObjet(Objet objet) {
+        this.objet = objet;
     }
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "defaultQuantity=" + defaultQuantity +
-                ", item=" + item +
-                ", unity='" + unity + '\'' +
+        return "Accessoires{" +
+                ", objet=" + objet + '\'' +
                 '}';
     }
 }
