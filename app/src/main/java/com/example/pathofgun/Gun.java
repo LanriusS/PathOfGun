@@ -4,138 +4,65 @@ import android.os.Parcel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Gun {
-    private boolean selected = false;
-    private final String nom;
-    private final int img;
+    private String nom;
     private double prix;
-    private final double prixBase;
-    ArrayList<Accesoires> listAccesoires = new ArrayList<>();
-    ArrayList<Accesoires> listExtraAccesoires = new ArrayList<>();
-    private final HashMap<Accesoires, Integer> AccesoiresQuantites = new HashMap<>();
-    private final HashMap<Accesoires, Integer> AccesoiresPrix = new HashMap<>();
+    private int img;
+    private List<String> accessoires;
 
-    public Gun(String name, double price, int picture, ArrayList<Accesoires> listAccesoires) {
-        this.nom = name;
-        this.img = picture;
-        this.prix = Double.parseDouble(""+price);
-        this.prixBase = Float.valueOf((float) price);
-        this.listAccesoires = listAccesoires;
-        Accesoires fromage = new Accesoires(Objet.CROSSE);
-        Accesoires olives = new Accesoires(Objet.POIGNEE);
-        Accesoires champignons = new Accesoires(Objet.MAG);
-        listExtraAccesoires.add(fromage);
-        listExtraAccesoires.add(olives);
-        listExtraAccesoires.add(champignons);
-
-
-        this.AccesoiresQuantites.put(fromage, 50);
-        this.AccesoiresQuantites.put(olives, 3);
-        this.AccesoiresQuantites.put(champignons, 80);
-        this.AccesoiresPrix.put(fromage, 0);
-        this.AccesoiresPrix.put(olives, 0);
-        this.AccesoiresPrix.put(champignons, 0);
+    public Gun(String nom, double prix, int img, List<String> accessoires) {
+        this.nom = nom;
+        this.prix = prix;
+        this.img = img;
+        this.accessoires = accessoires;
     }
 
+    public Gun() {
 
-    protected Gun(Parcel in) {
-        selected = in.readByte() != 0;
-        nom = in.readString();
-        img = in.readInt();
-        prix = in.readDouble();
-        prixBase = in.readDouble();
-        listAccesoires = in.readArrayList(Accesoires.class.getClassLoader());
     }
 
     public String getNom() {
         return nom;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
     public int getImg() {
         return img;
     }
 
-    public float getPrix() {
-        return Float.valueOf((float) prix);
+    public void setImg(int img) {
+        this.img = img;
     }
 
-    public int getQuantity(String Accesoires) {
-        int i = 0;
-        while (i < listExtraAccesoires.size()) {
-            if (listExtraAccesoires.get(i).getObjet().getName().equals(Accesoires)) {
-                return AccesoiresQuantites.get(listExtraAccesoires.get(i));
-            }
-            i++;
-        }
-        return -1;
+    public List<String> getAccessoires() {
+        return accessoires;
     }
 
-    public void setQuantity(String Accesoires, int quantity) {
-        int i = 0;
-        while (i < listExtraAccesoires.size()) {
-            Accesoires extraAccesoires = listExtraAccesoires.get(i);
-            if (extraAccesoires.getObjet().getName().equals(Accesoires)) {
-                AccesoiresQuantites.put(extraAccesoires, quantity);
-            }
-            i++;
-        }
+    public void setAccessoires(List<String> accessoires) {
+        this.accessoires = accessoires;
     }
 
-    public void setPrix(String price) {
-        this.prix = Double.parseDouble(price);
+    public List<String> getAccessories() {
+        return accessoires;
     }
 
-    public double getPrixBase() {
-        return prixBase;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setSelected(boolean checked) {
     }
 
     public boolean isSelected() {
-        return selected;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Gun{" +
-                "selected=" + selected +
-                ", name='" + nom + '\'' +
-                ", picture=" + img +
-                ", price='" + prix + '\'' +
-                ", basePrice=" + prixBase +
-                ", listIngredient=" + listAccesoires +
-                ", listExtraIngredient=" + listExtraAccesoires +
-                ", ingredientsQuantites=" + AccesoiresQuantites +
-                ", ingredientsPrix=" + AccesoiresPrix +
-                '}';
-    }
-
-    public HashMap<Accesoires, Integer> getAccesoiresQuantites() {
-        return AccesoiresQuantites;
-    }
-
-    public HashMap<Accesoires, Integer> getAccesoiresPrix() {
-        return AccesoiresPrix;
-    }
-
-    public ArrayList<Accesoires> getListAccesoires() {
-        return listAccesoires;
-    }
-
-    public void setListAccesoires(ArrayList<Accesoires> listAccesoires) {
-        this.listAccesoires = listAccesoires;
-    }
-
-    public ArrayList<Accesoires> getListExtraIngredient() {
-        return listExtraAccesoires;
-    }
-
-    public void setListExtraAccesoires(ArrayList<Accesoires> listExtraAccesoires) {
-        this.listExtraAccesoires = listExtraAccesoires;
-
+        return false;
     }
 }

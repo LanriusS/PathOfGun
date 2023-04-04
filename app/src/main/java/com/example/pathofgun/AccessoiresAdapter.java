@@ -4,15 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AccesoiresAdapter {
-    private ArrayList<Accesoires> objet;
+public class AccessoiresAdapter extends BaseAdapter {
+    private ArrayList<Accessoires> objet;
     private LayoutInflater mInflater;
 
-    public AccesoiresAdapter(ArrayList<Accesoires> objet, Context context) {
+    public AccessoiresAdapter(ArrayList<Accessoires> objet, Context context) {
         this.objet = objet;
         this.mInflater = LayoutInflater.from(context);
     }
@@ -23,12 +24,12 @@ public class AccesoiresAdapter {
     }
 
     @Override
-    public Object getObjet(int i) {
+    public Object getItem(int i) {
         return null;
     }
 
     @Override
-    public long getObjetId(int i) {
+    public long getItemId(int i) {
         return 0;
     }
 
@@ -36,16 +37,16 @@ public class AccesoiresAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View layoutItem;
         //(1) : Réutilisation des layouts
-        layoutItem = convertView == null ? mInflater.inflate(R.layout.accesoires_layout, parent, false) : convertView;
+        layoutItem = convertView == null ? mInflater.inflate(R.layout.accessoires_layout, parent, false) : convertView;
 
         //(2) : Récupération des TextView de notre layout
-        TextView textView = layoutItem.findViewById(R.id.textViewIngredient);
+        TextView textView = layoutItem.findViewById(R.id.textViewAccessoires);
 
         //(3) : Renseignement des valeurs
         System.out.println("getView : "+position+" : ");
-        System.out.println(objet.get(position).getObjet().getName() + " : " + objet.get(position).getDefaultQuantity() + " " + objet.get(position).getUnity());
+        System.out.println(objet.get(position).getObjet().getName() + " : " + objet.get(position));
 
-        textView.setText(items.get(position).getItem().getName() + " : " + objet.get(position).getDefaultQuantity() + " " + objet.get(position).getUnity());
+        textView.setText(objet.get(position).getObjet().getName() + " : " + objet.get(position));
 
 
         textView.setTag(position);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Image de l'arme -->
+    <ImageView
+        android:id="@+id/gun_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ak" />
+
+    <!-- Nom de l'arme -->
+    <TextView
+        android:id="@+id/gun_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AK-47"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <!-- Prix de l'arme -->
+    <TextView
+        android:id="@+id/gun_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prix : 500$"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <!-- Liste des accessoires de l'arme -->
+    <ListView
+        android:id="@+id/accessory_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewAccessoires"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accessoires :"
+        android:textSize="24sp" />
+
+</LinearLayout>

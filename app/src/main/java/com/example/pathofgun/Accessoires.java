@@ -2,14 +2,14 @@ package com.example.pathofgun;
 
 import android.os.Parcel;
 
-public class Accesoires {
+public class Accessoires {
     private Objet objet;
 
-    public Accesoires(Objet objet) {
+    public Accessoires(Objet objet) {
         this.objet = objet;
     }
 
-    protected Accesoires(Parcel in) {
+    protected Accessoires(Parcel in) {
         objet = objet.valueOf(in.readString());
     }
 

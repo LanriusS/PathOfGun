@@ -1,46 +1,9 @@
-package com.example.pathofgun;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ListGun {
-    public static List<PropObjet> getListeObjets() {
-        List<PropObjet> objets = new ArrayList<>();
-
-        objets.add(new PropObjet("AK47", "Description de l'objet 1", 9.99, "drawable/ak.png"));
-        objets.add(new PropObjet("M4A1", "Description de l'objet 2", 19.99, "drawable/m4.png"));
-        objets.add(new PropObjet("FSS", "Description de l'objet 3", 29.99, "drawable/fss.png"));
-        objets.add(new PropObjet("Basilisk", "Description de l'objet 4", 39.99, "drawable/basilisk.png"));
-        objets.add(new PropObjet("P890", "Description de l'objet 5", 49.99, "drawable/p890.png"));
-        objets.add(new PropObjet("STB", "Description de l'objet 6", 59.99, "drawable/stb.png"));
-        objets.add(new PropObjet("TAQ", "Description de l'objet 6", 59.99, "drawable/taq.png"));
-        objets.add(new PropObjet("Victus", "Description de l'objet 6", 59.99, "drawable/victus.png"));
-
-        return objets;
-    }
-    public void changeSelected(int selected){
-        for (PropObjet gun : this) {
-            gun.setSelected(false);
-        }
-        this.get(selected).setSelected(true);
-    }
-
-    public int isOneSelected(){
-        for (int i = 0; i < this.size(); i++) {
-            if(this.get(i).isSelected()){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-}
-
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -96,3 +59,666 @@ public class PropObjet {
         this.img = img;
     }
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+public class Gun {
+    private boolean selected = false;
+    private String nom;
+    private double prix;
+    private int img;
+    private List<String> accessoires;
+    ArrayList<Accessoires> listAccesoires = new ArrayList<>();
+    ArrayList<Accessoires> listExtraAccesoires = new ArrayList<>();
+    private final HashMap<Accessoires, Integer> AccesoiresQuantites = new HashMap<>();
+    private final HashMap<Accessoires, Integer> AccesoiresPrix = new HashMap<>();
+
+    public Gun(String name, double price, int picture, ArrayList<Accessoires> listAccesoires) {
+        this.nom = name;
+        this.img = picture;
+        this.prix = Double.parseDouble(""+price);
+        this.prixBase = Float.valueOf((float) price);
+        this.listAccesoires = listAccesoires;
+        Accessoires fromage = new Accessoires(Objet.CROSSE);
+        Accessoires olives = new Accessoires(Objet.POIGNEE);
+        Accessoires champignons = new Accessoires(Objet.MAG);
+        listExtraAccesoires.add(fromage);
+        listExtraAccesoires.add(olives);
+        listExtraAccesoires.add(champignons);
+
+
+        this.AccesoiresQuantites.put(fromage, 50);
+        this.AccesoiresQuantites.put(olives, 3);
+        this.AccesoiresQuantites.put(champignons, 80);
+        this.AccesoiresPrix.put(fromage, 0);
+        this.AccesoiresPrix.put(olives, 0);
+        this.AccesoiresPrix.put(champignons, 0);
+    }
+
+
+    protected Gun(Parcel in) {
+        selected = in.readByte() != 0;
+        nom = in.readString();
+        img = in.readInt();
+        prix = in.readDouble();
+        prixBase = in.readDouble();
+        listAccesoires = in.readArrayList(Accessoires.class.getClassLoader());
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public float getPrix() {
+        return Float.valueOf((float) prix);
+    }
+
+    public int getQuantity(String Accesoires) {
+        int i = 0;
+        while (i < listExtraAccesoires.size()) {
+            if (listExtraAccesoires.get(i).getObjet().getName().equals(Accesoires)) {
+                return AccesoiresQuantites.get(listExtraAccesoires.get(i));
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public void setQuantity(String Accesoires, int quantity) {
+        int i = 0;
+        while (i < listExtraAccesoires.size()) {
+            Accessoires extraAccesoires = listExtraAccesoires.get(i);
+            if (extraAccesoires.getObjet().getName().equals(Accesoires)) {
+                AccesoiresQuantites.put(extraAccesoires, quantity);
+            }
+            i++;
+        }
+    }
+
+    public void setPrix(String price) {
+        this.prix = Double.parseDouble(price);
+    }
+
+    public double getPrixBase() {
+        return prixBase;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Gun{" +
+                "selected=" + selected +
+                ", name='" + nom + '\'' +
+                ", picture=" + img +
+                ", price='" + prix + '\'' +
+                ", basePrice=" + prixBase +
+                ", listIngredient=" + listAccesoires +
+                ", listExtraIngredient=" + listExtraAccesoires +
+                ", ingredientsQuantites=" + AccesoiresQuantites +
+                ", ingredientsPrix=" + AccesoiresPrix +
+                '}';
+    }
+
+    public HashMap<Accessoires, Integer> getAccesoiresQuantites() {
+        return AccesoiresQuantites;
+    }
+
+    public HashMap<Accessoires, Integer> getAccesoiresPrix() {
+        return AccesoiresPrix;
+    }
+
+    public ArrayList<Accessoires> getListAccesoires() {
+        return listAccesoires;
+    }
+
+    public void setListAccesoires(ArrayList<Accessoires> listAccesoires) {
+        this.listAccesoires = listAccesoires;
+    }
+
+    public ArrayList<Accessoires> getListExtraIngredient() {
+        return listExtraAccesoires;
+    }
+
+    public void setListExtraAccesoires(ArrayList<Accessoires> listExtraAccesoires) {
+        this.listExtraAccesoires = listExtraAccesoires;
+
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package com.example.pathofgun;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
+public class ListGun extends ArrayList<Gun> {
+
+    static ArrayList<Accessoires> listAccessoires1 = new ArrayList<>();
+    static ArrayList<Accessoires> listAccessoires2 = new ArrayList<>();
+    static ArrayList<Accessoires> listAccessoires3 = new ArrayList<>();
+    static ArrayList<Accessoires> listAccessoires4 = new ArrayList<>();
+
+
+    private static ListGun instance=null;
+
+    public static ListGun getInstance(){
+        if (instance==null) {
+            instance = new ListGun();
+        }
+        return instance;
+    }
+
+    public ListGun() {
+        listAccessoires1.add(new Accessoires(Objet.ACOG));
+        listAccessoires1.add(new Accessoires(Objet.CROSSE));
+        listAccessoires1.add(new Accessoires(Objet.POIGNEE));
+        listAccessoires1.add(new Accessoires(Objet.OTAN));
+        listAccessoires1.add(new Accessoires(Objet.MAG));
+
+        listAccessoires2.add(new Accessoires(Objet.RED));
+        listAccessoires2.add(new Accessoires(Objet.SILENCIEUX));
+        listAccessoires2.add(new Accessoires(Objet.C9));
+        listAccessoires2.add(new Accessoires(Objet.MAG));
+        listAccessoires2.add(new Accessoires(Objet.MAG));
+
+        listAccessoires3.add(new Accessoires(Objet.SCOPE));
+        listAccessoires3.add(new Accessoires(Objet.SILENCIEUX));
+        listAccessoires3.add(new Accessoires(Objet.CROSSE));
+        listAccessoires3.add(new Accessoires(Objet.C50));
+        listAccessoires3.add(new Accessoires(Objet.MAG));
+
+        listAccessoires4.add(new Accessoires(Objet.RED));
+        listAccessoires4.add(new Accessoires(Objet.COMPENSATEUR));
+        listAccessoires4.add(new Accessoires(Objet.OTAN));
+        listAccessoires4.add(new Accessoires(Objet.POIGNEE));
+        listAccessoires4.add(new Accessoires(Objet.MAG));
+
+        /*add(new Gun("AK47", 599.99, R.drawable.ak, listAccessoires1));
+        add(new Gun("M4A1", 666, R.drawable.m4, listAccessoires4));
+        add(new Gun("FSS", 984, R.drawable.fss, listAccessoires1));
+        add(new Gun("Basilisk", 42, R.drawable.basilisk, listAccessoires2));
+        add(new Gun("P890", 31.13, R.drawable.p890, listAccessoires2));
+        add(new Gun("STB", 1906, R.drawable.stb, listAccessoires4));
+        add(new Gun("TAQ", 619.18, R.drawable.taq, listAccessoires4));
+        add(new Gun("Victus", 4941.84, R.drawable.victus, listAccessoires3));*/
+
+    }
+
+    public void changeSelected(int selected){
+        for (Gun gun : this) {
+            gun.setSelected(false);
+        }
+        this.get(selected).setSelected(true);
+    }
+
+    public int isOneSelected(){
+        for (int i = 0; i < this.size(); i++) {
+            if(this.get(i).isSelected()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static public String floatToCurrency(float amount) {
+        Locale locale = new Locale.Builder().setLanguage("fr").setRegion("FR").build();
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(amount);
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package com.example.pathofgun;
+
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class GunAdapter extends BaseAdapter {
+    private ListGun gun;
+    private LayoutInflater mInflater;
+    private ClickableActivity activity;
+    private int selected = -1;
+
+    public GunAdapter(ClickableActivity activity, ListGun gun) {
+        this.activity = activity;
+        this.gun = gun;
+        mInflater = LayoutInflater.from(activity.getContext());
+    }
+
+    public int getCount() {
+        return gun.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    public Object getgun(int position) {
+        return gun.get(position);
+    }
+
+    public long getgunId(int position) {
+        return position;
+    }
+
+    public ListGun getgun() {
+        return gun;
+    }
+
+    public void setgun(ListGun gun) {
+        this.gun = gun;
+    }
+
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        View layoutItem;
+
+        //(1) : Réutilisation des layouts
+        if (convertView == null) {
+            layoutItem = mInflater.inflate(R.layout.gun_layout, parent, false);
+        } else {
+            layoutItem = convertView;
+        }
+
+        //(2) : Récupération des TextView de notre layout
+        TextView nom = layoutItem.findViewById(R.id.name);
+        TextView prix = layoutItem.findViewById(R.id.price);
+        ImageView image = layoutItem.findViewById(R.id.picture);
+
+        //(3) : Renseignement des valeurs
+        nom.setText(gun.get(position).getNom());
+        prix.setText(gun.get(position).getPrix()+"€");
+        image.setImageResource(gun.get(position).getImg());
+        prix.setTextColor(( Float.parseFloat(""+gun.get(position).getPrix())> 5.0)? Color.RED : Color.parseColor("#7A7A7A"));
+
+        nom.setTag(position);
+        image.setTag(position);
+        prix.setTag(position);
+
+        nom.setOnClickListener(v -> {
+            gun.changeSelected(position);
+            activity.onClickNom(position);
+            nom.setTextSize(30);
+        });
+
+        if (!(gun.get(position).isSelected())) {
+            nom.setTextSize(20);
+        }
+
+        return layoutItem; //On retourne l'item créé.
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*
+public class GunAdapter extends ArrayAdapter<PropObjet> {
+
+    public GunAdapter(@NonNull Context context, int resource, @NonNull List<PropObjet> objects) {
+        super(context, resource, objects);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // récupération de l'objet à afficher à partir de la position dans la liste
+        PropObjet objet = getItem(position);
+
+        // récupération de la vue de l'élément de la ListView
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listView, parent, false);
+        }
+
+        // chargement de l'image à partir de l'URL stockée dans l'objet
+        ImageView image = convertView.findViewById(R.id.image);
+        int resID = getContext().getResources().getIdentifier(objet.getImage(), "drawable", getContext().getPackageName());
+        image.setImageResource(resID);
+
+        // affichage des autres informations de l'objet dans les TextView de l'élément
+        TextView nom = convertView.findViewById(R.id.nom);
+        nom.setText(objet.getNom());
+
+        TextView description = convertView.findViewById(R.id.description);
+        description.setText(objet.getDescription());
+
+        TextView prix = convertView.findViewById(R.id.prix);
+        prix.setText(String.format(Locale.getDefault(), "%.2f €", objet.getPrix()));
+
+        return convertView;
+    }
+}
+*/
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+package com.example.pathofgun;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShopActivity extends AppCompatActivity implements ClickableActivity{
+
+    public ListGun listGun = new ListGun();
+
+    public Intent intent;
+
+    GunAdapter gunAdapter;
+
+    private int selectedG = -1;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fond_shop);
+
+        gunAdapter = new GunAdapter(this, listGun);
+        ListView display = findViewById(R.id.listView);
+
+        display.setAdapter(gunAdapter);
+
+        Button button = findViewById(R.id.buttonCommander);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int selected = listGun.isOneSelected();
+                if (selected != -1) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShopActivity.this);
+                    Gun objet = listGun.get(selected);
+                    builder.setTitle("C'est parti ! " + objet.getNom() + " spéciale");
+                    builder.setMessage("prix : " + objet.getPrix());
+                    builder.setPositiveButton("OK", null);
+                    builder.setNegativeButton("ANNULER", null);
+                    builder.show();
+                }
+                startActivity(intent);
+            }
+        });
+
+        /*myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Récupérer l'arme et les accessoires associés à l'élément sélectionné
+                ListGun selectedGun = listGuns.get(position);
+
+                // Créer une nouvelle Intent pour ouvrir la nouvelle activité
+                Intent intent = new Intent(MainActivity.this, GunDetailsActivity.class);
+
+                // Ajouter l'arme et les accessoires associés à l'Intent en tant qu'extra
+                intent.putExtra("selectedGun", selectedGun);
+
+                // Démarrer l'activité avec l'Intent
+                startActivity(intent);
+            }
+        });*/
+
+        List<Gun> guns = new ArrayList<>();
+
+        try {
+            InputStream inputStream = getAssets().open("Gun.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            String json = new String(buffer, "UTF-8");
+
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                String nom = jsonObject.getString("nom");
+                double prix = jsonObject.getDouble("prix");
+                String img = jsonObject.getString("img");
+                JSONArray accessoiresJsonArray = jsonObject.getJSONArray("accessoires");
+                List<String> accessoires = new ArrayList<>();
+                for (int j = 0; j < accessoiresJsonArray.length(); j++) {
+                    accessoires.add(accessoiresJsonArray.getString(j));
+                }
+
+                Gun gun = new Gun();
+                gun.setNom(nom);
+                gun.setPrix(prix);
+                gun.setImg(Integer.parseInt(img));
+                gun.setAccessoires(accessoires);
+
+                guns.add(gun);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onClickNom(int position) {
+        gunAdapter.notifyDataSetChanged();
+        Button button = findViewById(R.id.buttonCommander);
+        selectedG = listGun.isOneSelected();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Arme");
+        builder.setMessage("Vous avez cliqué sur : " + listGun.get(selectedG).getNom());
+        builder.setNeutralButton("OK", null);
+        builder.show();
+        if (selectedG != -1) {
+            Gun arme = listGun.get(selectedG);
+            button.setEnabled(true);
+            button.setAlpha(1);
+        }
+        if (intent == null) {
+            intent = new Intent(getApplicationContext(), ChoixActivity.class);
+        }
+        intent.putExtra(getString(R.string.ARME), position);
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package com.example.pathofgun;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShopActivity extends AppCompatActivity implements ClickableActivity {
+
+    private ListGun listGun;
+    private GunAdapter gunAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fond_shop);
+
+        listGun = new ListGun();
+        gunAdapter = new GunAdapter(this, listGun);
+
+        ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(gunAdapter);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Gun selectedGun = listGun.get(position);
+            Intent intent = new Intent(ShopActivity.this, GunDetailsActivity.class);
+            startActivity(intent);
+        });
+
+        try {
+            InputStream inputStream = getAssets().open("Gun.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            String json = new String(buffer, "UTF-8");
+
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                String nom = jsonObject.getString("nom");
+                double prix = jsonObject.getDouble("prix");
+                String img = jsonObject.getString("img");
+                JSONArray accessoiresJsonArray = jsonObject.getJSONArray("accessoires");
+                List<String> accessoires = new ArrayList<>();
+                for (int j = 0; j < accessoiresJsonArray.length(); j++) {
+                    accessoires.add(accessoiresJsonArray.getString(j));
+                }
+
+                Gun gun = new Gun();
+                gun.setNom(nom);
+                gun.setPrix(prix);
+                System.out.println("img : " + img);
+                gun.setImg(getResources().getIdentifier(img, "drawable", getPackageName()));                gun.setAccessoires(accessoires);
+                listGun.add(gun);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClickNom(int position) {
+        gunAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+

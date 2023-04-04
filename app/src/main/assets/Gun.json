@@ -1,50 +1,49 @@
-[
-  {
+[  {
     "nom": "AK47",
-    "description": "Description de l'objet 1",
-    "prix": 9.99,
-    "img": "drawable/ak.png"
-  },
+    "prix": 599.99,
+    "img": "ak",
+    "accessoires": ["ACOG", "MAG", "CROSSE", "POIGNEE", "OTAN"]
+},
   {
     "nom": "M4A1",
-    "description": "Description de l'objet 2",
-    "prix": 19.99,
-    "img": "drawable/m4.png"
+    "prix": 666,
+    "img": "m4",
+    "accessoires": ["RED", "COMPENSATEUR", "OTAN", "POIGNEE", "MAG"]
   },
   {
     "nom": "FSS",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/fss.png"
+    "prix": 984,
+    "img": "fss",
+    "accessoires": ["ACOG", "MAG", "CROSSE", "POIGNEE", "OTAN"]
   },
   {
     "nom": "Basilisk",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/basilisk.png"
+    "prix": 42,
+    "img": "basilisk",
+    "accessoires": ["RED", "SILENCIEUX", "CROSSE", "C50", "MAG"]
   },
   {
     "nom": "P890",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/p890.png"
+    "prix": 31.13,
+    "img": "p890",
+    "accessoires": ["RED", "SILENCIEUX", "CROSSE", "C50", "MAG"]
   },
   {
     "nom": "STB",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/stb.png"
+    "prix": 1906,
+    "img": "stb",
+    "accessoires": ["RED", "COMPENSATEUR", "OTAN", "POIGNEE", "MAG"]
   },
   {
     "nom": "TAQ",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/taq.png"
+    "prix": 619.18,
+    "img": "taq",
+    "accessoires": ["RED", "COMPENSATEUR", "OTAN", "POIGNEE", "MAG"]
   },
   {
     "nom": "Victus",
-    "description": "Description de l'objet 3",
-    "prix": 29.99,
-    "img": "drawable/victus.png"
+    "prix": 4941.84,
+    "img": "victus",
+    "accessoires": ["SCOPE", "SILENCIEUX", "CROSSE", "C50", "MAG"]
   }
 ]
