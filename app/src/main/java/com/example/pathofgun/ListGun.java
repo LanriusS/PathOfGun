@@ -118,15 +118,25 @@ public class ListGun {
         return list;
     }
 
-    public void add(Gun gun) {
-        list.add(gun);
-    }
-
     public Gun getGun(int position) {
         return list.get(position);
     }
 
     public void setListGun(List<Gun> guns) {
         this.guns = guns;
+    }
+
+    public void addAll(List<Gun> guns) {
+        this.guns.addAll(guns);
+    }
+
+    public void add(Gun gun) {
+        this.guns.add(gun);
+    }
+
+    public void changeSelected(int position) {
+        Gun gun = list.get(position);
+        gun.setSelected(!gun.isSelected());
+        list.set(position, gun);
     }
 }

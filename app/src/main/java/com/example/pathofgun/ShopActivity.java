@@ -59,7 +59,8 @@ public class ShopActivity extends AppCompatActivity implements ClickableActivity
                 Gun gun = new Gun();
                 gun.setNom(nom);
                 gun.setPrix(prix);
-                gun.setImg(getResources().getIdentifier(img, "drawable", getPackageName()));                gun.setAccessoires(accessoires);
+                gun.setImg(getResources().getIdentifier(img, "drawable", getPackageName()));
+                gun.setAccessoires(accessoires);
                 gun.setAccessoires(accessoires);
                 listGun.add(gun);
             }

@@ -1,11 +1,10 @@
 package com.example.pathofgun;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,13 +14,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button enter = findViewById(R.id.enter);
-        enter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ShopActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right, R.anim.small);
-            }
+        enter.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.right, R.anim.small);
         });
     }
 }

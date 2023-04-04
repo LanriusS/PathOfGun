@@ -23,10 +23,9 @@ public class GunDetailsActivity extends AppCompatActivity {
         Gun selectedGun = getIntent().getParcelableExtra("selectedGun");
 
         // Récupérer les vues du layout
-        ImageView imageView;
-        imageView = findViewById(R.id.gun_image);
-        View nomTextView = findViewById(R.id.gun_name);
-        View accessoiresListView = findViewById(R.id.accessory_list);
+        ImageView imageView = findViewById(R.id.gun_image);
+        TextView nomTextView = findViewById(R.id.gun_name);
+        ListView accessoiresListView = findViewById(R.id.accessory_list);
 
         // Mettre à jour les vues avec les données de l'arme
         imageView.setImageResource(selectedGun.getImg());

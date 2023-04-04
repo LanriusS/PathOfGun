@@ -25,7 +25,7 @@ public class GunAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return listGun;
+        return listGun.getGun(position);
     }
 
     @Override
@@ -55,3 +55,4 @@ public class GunAdapter extends BaseAdapter {
         return view;
     }
 }
+

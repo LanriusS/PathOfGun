@@ -12,7 +12,7 @@ public class Gun {
     private int img;
     private List<String> accessoires;
 
-    public Gun(String nom, double prix, int img, List<String> accessoires) {
+    public Gun(String nom,  double prix, int img, List<String> accessoires) {
         this.nom = nom;
         this.prix = prix;
         this.img = img;
@@ -20,11 +20,17 @@ public class Gun {
     }
 
     public Gun() {
+        this.nom = "";
+        this.prix = 0.0;
+        this.img = 0;
+        this.accessoires = new ArrayList<>();
+    }
 
+    public static void add(Gun gun) {
     }
 
     public String getNom() {
-        return nom;
+          return nom;
     }
 
     public void setNom(String nom) {
@@ -65,4 +71,5 @@ public class Gun {
     public boolean isSelected() {
         return false;
     }
+
 }
